@@ -10,45 +10,77 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-# 1. PRIMERO DEFINIMOS LA FUNCIÓN DE DISEÑO
+# 1. PRIMERO DEFINIMOS LA FUNCIÓN DE DISEÑO PERSONALIZADO
 def aplicar_diseno_personalizado():
     st.markdown(
         """
         <style>
-        /* 1. Fondo de pantalla estilo Pixel Art / Arcade de Ciudad a los costados */
+        /* 1. Fondo urbano con tu diseño personalizado de GitHub */
         .stApp {
-            /* Imagen optimizada de horizonte urbano pixelado estilo videojuego */
-            background-image: url("https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop"); 
+            background-image: url("https://raw.githubusercontent.com/MarceloNH-IT/Examen_Adm_Consorcio_Final/main/Edificio_dise%C3%B1o.jpg"); 
             background-size: cover;
-            background-position: center bottom;
+            background-position: center center;
             background-attachment: fixed;
         }
         
-        /* 2. Contenedor central flotante para mantener la lectura limpia */
+        /* 2. Contenedor central flotante para mantener la lectura perfecta */
         .block-container {
-            background-color: rgba(14, 17, 23, 0.94); /* Fondo oscuro semitransparente */
-            max-width: 850px !important;
+            background-color: #0D1117 !important; /* Fondo sólido y opaco para facilitar la lectura */
+            max-width: 820px !important;
             padding-top: 2.5rem !important;
             padding-bottom: 5rem !important;
             border-radius: 16px;
-            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.9);
-            border: 2px solid #1f2937;
+            box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.95);
+            border: 2px solid #30363d;
         }
 
-        /* 3. Aumentar tamaño de letra de las preguntas para fácil lectura */
+        /* 3. Aumentar tamaño de letra de las preguntas (Fácil lectura) */
+        .stMarkdown, .stMarkdown p, .stMarkdown li,
+        [data-testid="stMarkdownContainer"] {
+            color: #F3F4F6 !important;
+        }
+
         .stMarkdown p, p {
-            font-size: 1.25rem !important;
-            line-height: 1.6 !important;
-        }
-
-        /* 4. Aumentar tamaño de las opciones de respuesta */
-        .stRadio label {
             font-size: 1.15rem !important;
-            padding-top: 0.4rem;
-            padding-bottom: 0.4rem;
+            line-height: 1.65 !important;
         }
 
-        /* 5. Estilo de la marquesina inferior / Footer con tu nombre resaltado */
+        /* Pregunta: jerarquía visual clara */
+        h1, h2, h3 {
+            color: #FFFFFF !important;
+            line-height: 1.35 !important;
+        }
+
+        /* Opciones de respuesta: tamaño y contraste */
+        .stRadio label, .stRadio p, [data-testid="stWidgetLabel"] {
+            color: #F9FAFB !important;
+            font-size: 1.08rem !important;
+            line-height: 1.55 !important;
+        }
+        .stRadio [data-testid="stMarkdownContainer"] p {
+            margin-bottom: 0.25rem !important;
+        }
+
+        /* Paneles, métricas y desplegables con fondo sólido */
+        [data-testid="stMetric"],
+        [data-testid="stExpander"],
+        [data-testid="stAlert"] {
+            background-color: #151B23 !important;
+            border: 1px solid #30363D !important;
+            border-radius: 10px !important;
+        }
+
+        /* Campos y botones con contraste consistente */
+        input, textarea, [data-baseweb="select"] > div {
+            background-color: #151B23 !important;
+            color: #FFFFFF !important;
+        }
+        .stButton button {
+            font-weight: 700 !important;
+            border-radius: 8px !important;
+        }
+
+        /* 5. Marquesina inferior / Footer con tu nombre destacado */
         .footer-creador {
             position: fixed;
             bottom: 0;
@@ -71,19 +103,18 @@ def aplicar_diseno_personalizado():
         }
         </style>
         
-        <!-- Tu firma centrada en la fachada inferior -->
+        <!-- Tu firma centrada en la marquesina inferior -->
         <div class="footer-creador">
             Creado con Python por Horacio Marcelo Nuñez
         </div>
         """,
         unsafe_allow_html=True
-
     )
 
-# 2. CONFIGURACIÓN DE PÁGINA (DEBE SER LO PRIMERO DE STREAMLIT)
+# 2. CONFIGURACIÓN DE PÁGINA (DEBE SER EL PRIMER COMANDO DE STREAMLIT)
 st.set_page_config(page_title="Simulacro RPA - Administrador de Consorcios", page_icon="🏢")
 
-# 3. AHORA SÍ EJECUTAMOS LA FUNCIÓN
+# 3. EJECUTAMOS LA FUNCIÓN DE DISEÑO JUSTO DESPUÉS
 aplicar_diseno_personalizado()
 
 DURACION = 60 * 60          # 60 minutos
@@ -91,7 +122,7 @@ APROBAR = 60                # % minimo (6 puntos)
 AREAS = {1: "Código Civil y Comercial", 2: "Ley 941 de CABA", 3: "Seguridad edilicia y AGC"}
 HIST = Path(os.environ.get("HISTORIAL_PATH", Path(__file__).with_name("historial.json")))
 
-# (area, pregunta, opciones, indice correcto, fundamento)
+# Banco de preguntas (1 al 50, con la pregunta 43/48 de Fachadas Seguras actualizada a 15 años)
 Q = [
 (1, '¿En qué momento nace formalmente el consorcio de propietarios como persona jurídica independiente de sus miembros?', ['Al momento de terminarse la construcción física del edificio por parte de la empresa constructora.', 'Con la venta o escrituración de la primera unidad funcional a un tercero.', 'Con el otorgamiento de la escritura pública del Reglamento de Propiedad Horizontal y su inscripción registral.', 'Cuando se celebra la primera asamblea ordinaria y se elige al administrador matriculado.'], 2, 'El Art. 2044 del CCyC establece que el consorcio como persona jurídica nace con el otorgamiento del Reglamento de Propiedad Horizontal por escritura pública y su correspondiente inscripción registral.'),
 (1, 'Según el Código Civil y Comercial, las estructuras de los balcones en un edificio de departamentos se consideran jurídicamente como:', ['Bienes de propiedad exclusiva y privada del dueño del departamento.', 'Bienes de propiedad común del consorcio.', 'Bienes mixtos, siendo la baranda común y el piso privado.', 'Bienes del dominio público de la Ciudad de Buenos Aires por dar a la vía pública.'], 1, 'Según el Art. 2041 inc. e) del CCyC, los balcones, techos, terrazas y estructuras de muros exteriores son cosas necesariamente comunes de propiedad del consorcio.'),
@@ -140,7 +171,7 @@ Q = [
 (3, '¿Qué normas técnicas de carácter nacional homologa el régimen de la Ciudad para regular de forma estricta el servicio de mantenimiento de las Instalaciones Fijas contra Incendios (IFCI)?', ['Normas IRAM (ej. IRAM 3546 y 3619) referidas a la evaluación y operatividad de sistemas de extinción.', 'Normas ISO 9001 exclusivamente referidas a procesos de administración de empresas comerciales.', 'Disposiciones internas del SUTERH sobre seguridad e higiene en el trabajo de los encargados.', 'Estándares de edificación e infraestructura de la Provincia de Córdoba.'], 0, 'El régimen de fiscalización edilicia local homologa técnicamente las Normas IRAM nacionales (como la 3546 y 3619) para auditar la calidad, presión operativa y vigencia de las instalaciones contra incendios (IFCI).'),
 (3, 'Conforme a la normativa de fachadas y balcones en CABA, ¿cuál es la responsabilidad primordial del consorcio administrado en relación al frente del inmueble?', ['Pintar el frente del edificio obligatoriamente cada dos años sin excepción formal.', 'Garantizar la conservación y seguridad estructural de muros linderos, balcones y salientes para evitar desprendimientos.', 'Modificar la arquitectura exterior sin autorización municipal si lo vota el 30% de los presentes.', 'Utilizar exclusivamente pintura sintética aprobada por la policía de la Ciudad.'], 1, 'El programa de conservación edilicia delega sobre la administración y la persona jurídica del consorcio la obligación absoluta de velar por la estabilidad estructural de frentes, molduras y balcones para evitar caídas a la calle.'),
 (3, '¿Qué consecuencia legal o administrativa afronta un consorcio o administrador ante el incumplimiento grave de las normas de conservación de ascensores o matafuegos ante una inspección de la AGC?', ['Multas severas y posible clausura preventiva de las instalaciones o equipos riesgosos.', 'Una simple amonestación verbal sin registración en las bases informáticas de la Ciudad.', 'Exención impositiva por un año fiscal en las tasas generales de alumbrado, barrido y limpieza.', 'La transferencia automática de la propiedad del edificio al dominio privado del Gobierno de la Ciudad.'], 0, 'La falta de cumplimiento preventivo en elementos de seguridad de alta criticidad (ascensores/matafuegos) faculta a los inspectores de la AGC a dictar multas pecuniarias y la clausura inmediata preventiva de los equipos.'),
-(3, 'En el marco del programa "Fachadas Seguras" de la AGC, ¿a partir de qué antigüedad del edificio se vuelve obligatorio presentar periódicamente el Certificado de Conservación de Fachadas?', ['A partir de los 5 años de antigüedad del inmueble.', 'A partir de los 15 años de antigüedad del inmueble.', 'Únicamente cuando el edificio supera los 50 años de antigüedad en el catastro.', 'No depende de la antigüedad, sino de la cantidad de pisos que posea la estructura edilicia.'], 1, 'Según la Ley 257 (modificada por la Ley 6.116, BO 10/01/2019) y el art. 5.1.2 del Código de Edificación, el Certificado de Conservación de Fachadas se exige desde los 15 años de antigüedad del edificio, con una periodicidad de renovación que depende de esa antigüedad.'),
+(3, 'En el marco del programa "Fachadas Seguras" de la AGC, ¿a partir de qué antigüedad del edificio se vuelve obligatorio presentar periódicamente el Certificado de Conservación de Fachadas?', ['A partir de los 15 años de antigüedad del inmueble.', 'A partir de los 10 años de antigüedad del inmueble.', 'Únicamente cuando el edificio supera los 50 años de antigüedad en el catastro.', 'No depende de la antigüedad, sino de la cantidad de pisos que posea la estructura edilicia.'], 0, 'Según la Ley 257, modificada por la Ley 6.116 (BOCBA 10/01/2019), el Certificado de Conservación de Fachadas se exige a partir de los 15 años de antigüedad del edificio; la periodicidad de renovación depende de la antigüedad del inmueble.'),
 (3, 'El sistema informatizado implementado por la AGC que sustituyó el histórico soporte físico en papel para registrar las firmas de inspecciones de mantenimiento se denomina:', ['Sistema de Gestión de Expedientes Electrónicos Nacionales.', 'Libro Digital de Conservación (Elevadores / Fachadas / IFCI).', 'Registro Único de Contratos Inmobiliarios de la CABA.', 'Aplicación Móvil miBA de Alerta Temprana de Siniestros.'], 1, 'El Libro Digital de Conservación de la AGC digitalizó e informatizó el asentamiento técnico directo de reparaciones por parte de los proveedores autorizados, eliminando las firmas en soporte de papel físico.'),
 (3, '¿Quién es el profesional idóneo legalmente facultado para confeccionar el Informe Técnico de Fachadas Seguras a presentar ante la AGC a nombre del consorcio?', ['El encargado del edificio que cuente con más de 10 años de antigüedad en sus funciones de maestranza.', 'Un profesional con título habilitante y matrícula activa de Arquitecto o Ingeniero Civil.', 'El presidente del Consejo de Propietarios electo en la última asamblea extraordinaria.', 'Cualquier idóneo que realice tareas de pintura y albañilería en la zona de la Comuna correspondiente.'], 1, 'La presentación del Informe Técnico de Fachadas Seguras ante el Gobierno de la Ciudad exige la firma e incumbencia profesional de un Arquitecto o Ingeniero Civil matriculado en sus respectivos consejos de ley.'),
 ]
