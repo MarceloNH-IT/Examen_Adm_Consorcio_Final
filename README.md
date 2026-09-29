@@ -80,7 +80,7 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 
 ![01.3](01.3.jpg)
 
-![FotoNOC](FotoNOC.jpg)
+
 ---
 
 ## 🚀 Tecnologías y Herramientas Utilizadas
