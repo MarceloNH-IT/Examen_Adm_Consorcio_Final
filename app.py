@@ -10,10 +10,64 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-# Configuración de página SIEMPRE debe ser el primer comando de Streamlit
+# 1. PRIMERO DEFINIMOS LA FUNCIÓN DE DISEÑO
+def aplicar_diseno_personalizado():
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background-image: url("https://i.pinimg.com/originals/30/1e/cb/301ecb06dd3d7222c544d8bce6a7bf52.gif"); 
+            background-size: cover;
+            background-position: bottom center;
+            background-attachment: fixed;
+        }
+        .block-container {
+            background-color: rgba(14, 17, 23, 0.93);
+            padding-top: 3rem !important;
+            padding-bottom: 5rem !important;
+            border-radius: 12px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+        }
+        .stMarkdown p, p {
+            font-size: 1.25rem !important;
+            line-height: 1.6 !important;
+        }
+        .stRadio label {
+            font-size: 1.15rem !important;
+            padding-top: 0.4rem;
+            padding-bottom: 0.4rem;
+        }
+        .footer-creador {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 99999;
+            border-top: 4px solid #3b82f6;
+            font-family: 'Courier New', Courier, monospace;
+            box-shadow: 0px -5px 15px rgba(0,0,0,0.5);
+        }
+        .stApp > header {
+            background-color: transparent !important;
+        }
+        </style>
+        <div class="footer-creador">
+            Creado con Python por Horacio Marcelo Nuñez
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+# 2. CONFIGURACIÓN DE PÁGINA (DEBE SER LO PRIMERO DE STREAMLIT)
 st.set_page_config(page_title="Simulacro RPA - Administrador de Consorcios", page_icon="🏢")
 
-# Ejecuta la función del diseño justo después
+# 3. AHORA SÍ EJECUTAMOS LA FUNCIÓN
 aplicar_diseno_personalizado()
 
 DURACION = 60 * 60          # 60 minutos
