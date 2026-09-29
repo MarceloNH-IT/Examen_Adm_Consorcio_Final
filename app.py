@@ -15,28 +15,40 @@ def aplicar_diseno_personalizado():
     st.markdown(
         """
         <style>
+        /* 1. Fondo de pantalla estilo Pixel Art / Arcade de Ciudad a los costados */
         .stApp {
-            background-image: url("https://i.pinimg.com/originals/30/1e/cb/301ecb06dd3d7222c544d8bce6a7bf52.gif"); 
+            /* Imagen optimizada de horizonte urbano pixelado estilo videojuego */
+            background-image: url("https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop"); 
             background-size: cover;
-            background-position: bottom center;
+            background-position: center bottom;
             background-attachment: fixed;
         }
+        
+        /* 2. Contenedor central flotante para mantener la lectura limpia */
         .block-container {
-            background-color: rgba(14, 17, 23, 0.93);
-            padding-top: 3rem !important;
+            background-color: rgba(14, 17, 23, 0.94); /* Fondo oscuro semitransparente */
+            max-width: 850px !important;
+            padding-top: 2.5rem !important;
             padding-bottom: 5rem !important;
-            border-radius: 12px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+            border-radius: 16px;
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.9);
+            border: 2px solid #1f2937;
         }
+
+        /* 3. Aumentar tamaño de letra de las preguntas para fácil lectura */
         .stMarkdown p, p {
             font-size: 1.25rem !important;
             line-height: 1.6 !important;
         }
+
+        /* 4. Aumentar tamaño de las opciones de respuesta */
         .stRadio label {
             font-size: 1.15rem !important;
             padding-top: 0.4rem;
             padding-bottom: 0.4rem;
         }
+
+        /* 5. Estilo de la marquesina inferior / Footer con tu nombre resaltado */
         .footer-creador {
             position: fixed;
             bottom: 0;
@@ -51,17 +63,21 @@ def aplicar_diseno_personalizado():
             z-index: 99999;
             border-top: 4px solid #3b82f6;
             font-family: 'Courier New', Courier, monospace;
-            box-shadow: 0px -5px 15px rgba(0,0,0,0.5);
+            box-shadow: 0px -5px 20px rgba(0,0,0,0.8);
         }
+        
         .stApp > header {
             background-color: transparent !important;
         }
         </style>
+        
+        <!-- Tu firma centrada en la fachada inferior -->
         <div class="footer-creador">
             Creado con Python por Horacio Marcelo Nuñez
         </div>
         """,
         unsafe_allow_html=True
+
     )
 
 # 2. CONFIGURACIÓN DE PÁGINA (DEBE SER LO PRIMERO DE STREAMLIT)
