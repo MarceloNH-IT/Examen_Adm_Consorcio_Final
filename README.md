@@ -9,6 +9,7 @@ Aquí tienes el informe redactado en primera persona, con un tono profesional, f
 
 ## 1. Introducción y Propósito del Proyecto
 
+## Te comparto cómo queda redactado en primera persona para que lo copies y pegues directamente en tu archivo
 <p align="center">
   <a href="https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app">
     <img src="https://img.shields.io/badge/🚀_Probar_Simulador_Online-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Simulador Online">
