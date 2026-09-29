@@ -85,6 +85,12 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 ¡Podés probar el simulador interactivo funcionando directamente desde la web acá:
 [Simulador de Examen - Administrador de Consorcios](https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app)
 
+<p align="center">
+  <a href="https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app">
+    <img src="https://img.shields.io/badge/🚀_Probar_Simulador_Online-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Simulador Online">
+  </a>
+</p>
+
 ---
 
 ## 🚀 Tecnologías y Herramientas Utilizadas
