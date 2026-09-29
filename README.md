@@ -64,9 +64,23 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 
 
 * Conecté el repositorio con Streamlit Community Cloud para habilitar el despliegue automático en la nube y asegurar una disponibilidad pública fluida.
+![01.1Py](01.1Py.jpg)
+
+![01](01.jpg)
+
+![01.2](01.2.jpg)
 
 
+![02](02.png)
+![03](03.jpg)
 
+![Linea_de_codigo](Linea_de_codigo.jpg)
+
+![Edificio_diseño](Edificio_dise%C3%B1o.jpg)
+
+![01.3](01.3.jpg)
+
+![FotoNOC](FotoNOC.jpg)
 ---
 
 ## 4. Conclusión y Proyección Profesional
