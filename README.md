@@ -92,6 +92,15 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 </p>
 
 ---
+# Ejemplo para agregarlo en la barra lateral (sidebar)
+with st.sidebar:
+    st.markdown("---")
+    st.markdown("### 🌐 Enlaces Útiles")
+    st.link_button(
+        "🚀 Abrir Simulador en Vivo", 
+        "https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app",
+        use_container_width=True
+    )
 
 ## 🚀 Tecnologías y Herramientas Utilizadas
 
