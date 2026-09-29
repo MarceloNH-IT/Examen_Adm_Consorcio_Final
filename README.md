@@ -83,6 +83,34 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 ![FotoNOC](FotoNOC.jpg)
 ---
 
+## 🚀 Tecnologías y Herramientas Utilizadas
+
+* **Lenguaje:** Python 3.x
+* **Librerías / Frameworks:** Streamlit
+* **Empaquetado:** PyInstaller
+* **Control de Versiones:** Git y GitHub
+* **Entornos:** IDLE, CMD (Símbolo del sistema de Windows), Google Chrome
+
+---
+
+![Configuración del Adaptador de Red Puente](FotoNOC.jpg)
+## 🤝 Conclusión y Contacto
+
+![GitHub Stats](https://github-readme-stats.anuraghazra1.vercel.app/api?username=MarceloNH-IT&show_icons=true&theme=radical)
+
+![Top Languages](https://github-readme-stats.anuraghazra1.vercel.app/api/top-langs/?username=MarceloNH-IT&layout=compact&theme=radical)
+
+![Streak Stats](https://github-readme-streak-stats.herokuapp.com/?user=MarceloNH-IT&theme=radical)
+
+![Profile Views](https://komarev.com/ghpvc/?username=MarceloNH-IT&color=blue&style=flat)
+
+* **💼 LinkedIn**: [Horacio Marcelo Nuñez](https://linkedin.com) 
+* **📬 Correo Electrónico**: [marcelonh86@gmail.com](marcelonh86@gmail.com)
+* **🚀 GitHub**: [@MarceloNunez-NOC](https://github.com/MarceloNunez-NOC)
+
+Agradezco el tiempo de quienes visitan mi portafolio en GitHub. Cada laboratorio refleja mi compromiso con el aprendizaje continuo y la práctica aplicada en IT, redes y administración de sistemas con programacion en python. Mi objetivo es demostrar que puedo diagnosticar, resolver y documentar incidentes de manera profesional, utilizando máquinas virtuales y configuraciones de red y programar de algo simple a cosas complejas. scrip de analisis y diagnostico como resolver incidentes si se me permite. 
+
+Invito a reclutadores y colegas a seguir mis repositorios, donde iré compartiendo nuevos proyectos, certificados y logros. Estoy abierto a colaborar y aportar mi experiencia en entornos que valoren la constancia y la capacidad de resolver problemas.
 ## 4. Conclusión y Proyección Profesional
 
 Este proyecto representa un hito fundamental en mi etapa de formación en programación y desarrollo web, permitiéndome integrar conocimientos teóricos de Python con la resolución de una necesidad práctica del mundo real.
