@@ -9,6 +9,13 @@ Aquí tienes el informe redactado en primera persona, con un tono profesional, f
 
 ## 1. Introducción y Propósito del Proyecto
 
+<p align="center">
+  <a href="https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app">
+    <img src="https://img.shields.io/badge/🚀_Probar_Simulador_Online-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Simulador Online">
+  </a>
+</p>
+
+
 El presente proyecto nace de la necesidad de contar con una herramienta interactiva, veraz y de alta calidad para la práctica y el repaso previo al **Examen de Idoneidad Obligatorio** para la matriculación como Administrador de Consorcios en el **Registro Público de Administradores (RPA)** de la Ciudad Autónoma de Buenos Aires.
 
 Tras la modificación del formato de evaluación a un sistema escrito (regulado por la normativa vigente y la Disposición 3395/DGDYPC/26), desarrollé esta aplicación de práctica con el objetivo de consolidar mis conocimientos en programación con **Python** y, al mismo tiempo, ofrecer un recurso de estudio útil tanto para mí como para mis compañeros de curso y cualquier aspirante a la profesión.
@@ -84,12 +91,6 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 ### 🚀 Acceso en Vivo
 ¡Podés probar el simulador interactivo funcionando directamente desde la web acá:
 [Simulador de Examen - Administrador de Consorcios](https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app)
-
-<p align="center">
-  <a href="https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app">
-    <img src="https://img.shields.io/badge/🚀_Probar_Simulador_Online-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Simulador Online">
-  </a>
-</p>
 
 ---
 # Ejemplo para agregarlo en la barra lateral (sidebar)
