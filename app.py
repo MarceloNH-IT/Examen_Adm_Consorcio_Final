@@ -10,7 +10,11 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+# Configuración de página SIEMPRE debe ser el primer comando de Streamlit
 st.set_page_config(page_title="Simulacro RPA - Administrador de Consorcios", page_icon="🏢")
+
+# Ejecuta la función del diseño justo después
+aplicar_diseno_personalizado()
 
 DURACION = 60 * 60          # 60 minutos
 APROBAR = 60                # % minimo (6 puntos)
