@@ -80,6 +80,10 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 
 ![01.3](01.3.jpg)
 
+##PRUEBA FINAL 🚀##
+### 🚀 Acceso en Vivo
+¡Podés probar el simulador interactivo funcionando directamente desde la web acá:
+[Simulador de Examen - Administrador de Consorcios](https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app)
 
 ---
 
