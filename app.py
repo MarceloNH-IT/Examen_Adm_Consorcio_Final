@@ -338,10 +338,81 @@ def resultados():
     nota = max(1.0, round(pct / 10, 1))
     minimo = math.ceil(total * APROBAR / 100)
     aprobado = len(ok) >= minimo
+    
     if S.fx:
         S.fx = False
         if aprobado:
-            st.balloons(); st.toast("🥂 ¡Brindemos por ese resultado!", icon="🎉")
+            # Globos nativos originales
+            st.balloons()
+            st.toast("🥂 ¡Brindemos por ese resultado!", icon="🎉")
+            
+            # INYECCIÓN: Fuegos artificiales (10 seg) y Leyenda flotante gigante
+            st.markdown(
+                """
+                <style>
+                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+                .leyenda-festejo {
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 6vw;
+                    font-weight: 900;
+                    color: #FFD700;
+                    text-shadow: 0px 0px 25px rgba(255,255,255,0.9), 4px 4px 0px #FF8C00, 8px 8px 0px #000;
+                    text-align: center;
+                    z-index: 9999999;
+                    pointer-events: none;
+                    animation: subirYDesvanecer 10s ease-out forwards;
+                    white-space: nowrap;
+                }
+                @keyframes subirYDesvanecer {
+                    0% { top: 80%; opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                    10% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                    20% { transform: translate(-50%, -50%) scale(1); }
+                    75% { opacity: 1; top: 30%; }
+                    100% { top: -10%; opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                }
+                </style>
+                
+                <div class="leyenda-festejo">¡Felicitaciones Aprobaste !</div>
+
+                <img src="dummy" onerror="
+                    if (!window.confettiCargado) {
+                        let s = document.createElement('script');
+                        s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+                        s.onload = function() {
+                            window.confettiCargado = true;
+                            dispararFuegos();
+                        };
+                        document.head.appendChild(s);
+                    } else {
+                        dispararFuegos();
+                    }
+
+                    function dispararFuegos() {
+                        var duration = 10 * 1000; /* 10 segundos exactos */
+                        var animationEnd = Date.now() + duration;
+                        var defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 999999 };
+                        function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+                        
+                        var interval = setInterval(function() {
+                            var timeLeft = animationEnd - Date.now();
+                            if (timeLeft <= 0) { return clearInterval(interval); }
+                            
+                            var particleCount = 50 * (timeLeft / duration);
+                            /* Fuego artificial desde la izquierda */
+                            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                            /* Fuego artificial desde la derecha */
+                            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                        }, 250);
+                    }
+                " style="display:none;">
+                """,
+                unsafe_allow_html=True
+            )
+
     st.title(f"Resultado de {S.usuario}")
     m, s = divmod(int(S.used), 60)
     c1, c2, c3, c4 = st.columns(4)
@@ -350,10 +421,12 @@ def resultados():
     c3.metric("Correctas", f"{len(ok)} / {total}")
     c4.metric("Tiempo", f"{m:02d}:{s:02d}")
     st.progress(pct / 100, text=f"{pct:.1f}% de aciertos · mínimo para aprobar: {APROBAR}%")
+    
     if aprobado:
         st.success("🥂 ¡APROBADO! Alcanzaste el mínimo de 6 puntos. ¡Brindemos!")
     else:
         st.error(f"NO APROBADO. Necesitabas {minimo} correctas y lograste {len(ok)}. Te faltaron {minimo - len(ok)}. ¡A repetir!")
+    
     if en_blanco:
         st.caption(f"Preguntas en blanco: {len(en_blanco)} (no restan puntos).")
 
