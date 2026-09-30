@@ -98,6 +98,22 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 
 ![Codigomodig](Codigomodig.jpg)
 
+# 🏢 Simulador Interactivo de Examen RPA (CABA)
+Descripción del Proyecto:
+Aplicación web desarrollada para replicar las condiciones del examen oficial del Registro Público de Administradores de la Ciudad de Buenos Aires. El simulador evalúa conocimientos legales, administrativos y de seguridad edilicia mediante un sistema interactivo de 50 preguntas con retroalimentación en tiempo real.
+
+Desafíos Técnicos y Soluciones:
+
+Integración segura de animaciones (JS en Python): Resolví los bloqueos de seguridad de Streamlit frente a inyecciones directas de HTML (st.markdown) refactorizando el módulo de celebración. Implementé iframes encapsulados mediante streamlit.components.v1.html para ejecutar secuencias complejas de JavaScript (globos, confeti y notificaciones) de forma nativa y sin errores de renderizado.
+
+Gestión de Estado (State Management): Diseñé la lógica de control de flujo utilizando st.session_state para manejar la persistencia de datos temporales, calcular métricas por área, registrar el historial de intentos y garantizar que los eventos de celebración se disparen una única vez, evitando bucles de recarga.
+
+Optimización UI/UX: Integré CSS personalizado para alterar los estilos base de Streamlit, mejorando la legibilidad y el contraste de los selectores (radio buttons) y aplicando una estética urbana estilo 16-bits para una experiencia inmersiva.
+
+Testing y Depuración: Validé el comportamiento del DOM y la ejecución aislada de scripts utilizando entornos de prueba como AppTest y jsdom, apoyándome en IA como soporte técnico para acelerar el debugging.
+
+Stack Tecnológico: Python, Streamlit, Pandas, HTML/CSS, JavaScript.
+
 # PRUEBA FINAL 🚀
 ### 🚀 Acceso en Vivo
 ¡Podés probar el simulador interactivo funcionando directamente desde la web acá:
