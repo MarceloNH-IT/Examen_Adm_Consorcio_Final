@@ -80,11 +80,15 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 
 ![01](01.jpg)
 
+# PRIMERAS LINEAS DE COMANDO 
+
+![PrimerasPy](PrimerasPy.jpg)
 
 
 
 # DISEÑO
 ![Edificio_diseño](Edificio_dise%C3%B1o.jpg)
+
 
 # TERMINACION
 
