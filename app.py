@@ -6,26 +6,27 @@ import threading
 import time
 from datetime import datetime
 from pathlib import Path
-
+ 
 import pandas as pd
 import streamlit as st
-
-# 1. PRIMERO DEFINIMOS LA FUNCIÓN DE DISEÑO PERSONALIZADO
+import streamlit.components.v1 as components
+ 
+# 1. FUNCIÓN DE DISEÑO PERSONALIZADO
 def aplicar_diseno_personalizado():
     st.markdown(
         """
         <style>
         /* 1. Fondo urbano con tu diseño personalizado de GitHub */
         .stApp {
-            background-image: url("https://raw.githubusercontent.com/MarceloNH-IT/Examen_Adm_Consorcio_Final/main/Edificio_dise%C3%B1o.jpg"); 
+            background-image: url("https://raw.githubusercontent.com/MarceloNH-IT/Examen_Adm_Consorcio_Final/main/Edificio_dise%C3%B1o.jpg");
             background-size: cover;
             background-position: center center;
             background-attachment: fixed;
         }
-        
+ 
         /* 2. Contenedor central flotante para mantener la lectura perfecta */
         .block-container {
-            background-color: #0D1117 !important; /* Fondo sólido y opaco para facilitar la lectura */
+            background-color: #0D1117 !important;
             max-width: 820px !important;
             padding-top: 2.5rem !important;
             padding-bottom: 5rem !important;
@@ -33,25 +34,22 @@ def aplicar_diseno_personalizado():
             box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.95);
             border: 2px solid #30363d;
         }
-
-        /* 3. Aumentar tamaño de letra de las preguntas (Fácil lectura) */
+ 
+        /* 3. Tamaño de letra (fácil lectura) */
         .stMarkdown, .stMarkdown p, .stMarkdown li,
         [data-testid="stMarkdownContainer"] {
             color: #F3F4F6 !important;
         }
-
         .stMarkdown p, p {
             font-size: 1.15rem !important;
             line-height: 1.65 !important;
         }
-
-        /* Pregunta: jerarquía visual clara */
         h1, h2, h3 {
             color: #FFFFFF !important;
             line-height: 1.35 !important;
         }
-
-        /* Opciones de respuesta: tamaño y contraste */
+ 
+        /* 4. Opciones de respuesta: círculos más grandes y más separadas */
         .stRadio label, .stRadio p, [data-testid="stWidgetLabel"] {
             color: #F9FAFB !important;
             font-size: 1.08rem !important;
@@ -60,7 +58,33 @@ def aplicar_diseno_personalizado():
         .stRadio [data-testid="stMarkdownContainer"] p {
             margin-bottom: 0.25rem !important;
         }
-
+        div[role="radiogroup"] {
+            gap: 14px !important;
+        }
+        div[role="radiogroup"] > label {
+            padding: 14px 16px !important;
+            border-radius: 10px !important;
+            background: rgba(255,255,255,0.06) !important;
+            cursor: pointer;
+            width: 100%;
+        }
+        div[role="radiogroup"] > label:hover {
+            background: rgba(255,255,255,0.15) !important;
+        }
+        div[role="radiogroup"] > label > div:first-child {
+            width: 30px !important;
+            height: 30px !important;
+            min-width: 30px !important;
+            margin-right: 14px !important;
+        }
+        div[role="radiogroup"] > label > div:first-child > div {
+            width: 14px !important;
+            height: 14px !important;
+        }
+        div[data-testid="stRadio"] {
+            margin-bottom: 28px;
+        }
+ 
         /* Paneles, métricas y desplegables con fondo sólido */
         [data-testid="stMetric"],
         [data-testid="stExpander"],
@@ -69,8 +93,8 @@ def aplicar_diseno_personalizado():
             border: 1px solid #30363D !important;
             border-radius: 10px !important;
         }
-
-        /* Campos y botones con contraste consistente */
+ 
+        /* Campos y botones */
         input, textarea, [data-baseweb="select"] > div {
             background-color: #151B23 !important;
             color: #FFFFFF !important;
@@ -79,8 +103,8 @@ def aplicar_diseno_personalizado():
             font-weight: 700 !important;
             border-radius: 8px !important;
         }
-
-        /* 5. Marquesina inferior / Footer con tu nombre destacado */
+ 
+        /* 5. Marquesina inferior / Footer */
         .footer-creador {
             position: fixed;
             bottom: 0;
@@ -97,31 +121,159 @@ def aplicar_diseno_personalizado():
             font-family: 'Courier New', Courier, monospace;
             box-shadow: 0px -5px 20px rgba(0,0,0,0.8);
         }
-        
+ 
         .stApp > header {
             background-color: transparent !important;
         }
         </style>
-        
-        <!-- Tu firma centrada en la marquesina inferior -->
+ 
         <div class="footer-creador">
             Creado con Python por Horacio Marcelo Nuñez
         </div>
         """,
         unsafe_allow_html=True
     )
-
+ 
+ 
+# ---------------------------------------------------------------------------
+# FESTEJO: globos (30 s) + fuegos artificiales (10 s) + cartel que sube
+# lentamente al medio, se queda 5 s y se esfuma.
+# (st.markdown NO ejecuta JavaScript; por eso el código viejo se veía como
+#  texto. Acá se usa un iframe que sí ejecuta JS y dibuja sobre la página.)
+# ---------------------------------------------------------------------------
+_FESTEJO_HTML = """<!-- token __TOKEN__ -->
+<script>
+(function () {
+  var P;
+  try { P = window.parent; P.document.body; } catch (e) { return; }
+  var doc = P.document;
+ 
+  ['festejo-root', 'festejo-style', 'festejo-cartel'].forEach(function (id) {
+    var v = doc.getElementById(id); if (v) v.remove();
+  });
+ 
+  var MENSAJE = __MENSAJE__;
+  var FUEGOS = __FUEGOS__;
+  var DURACION_GLOBOS = 30000;
+  var DURACION_FUEGOS = 10000;
+ 
+  var style = doc.createElement('style');
+  style.id = 'festejo-style';
+  style.textContent =
+    '#festejo-root{position:fixed;inset:0;pointer-events:none;z-index:999998;overflow:hidden;}' +
+    '.festejo-globo{position:absolute;bottom:-120px;line-height:1;will-change:transform;' +
+      'animation-name:festejoSubir;animation-timing-function:linear;animation-fill-mode:forwards;}' +
+    '@keyframes festejoSubir{' +
+      '0%{transform:translate(0,0) rotate(-4deg);}' +
+      '25%{transform:translate(18px,-30vh) rotate(4deg);}' +
+      '50%{transform:translate(-18px,-65vh) rotate(-4deg);}' +
+      '75%{transform:translate(18px,-100vh) rotate(4deg);}' +
+      '100%{transform:translate(0,-135vh) rotate(-4deg);}}' +
+    '#festejo-cartel{position:fixed;left:50%;top:50%;z-index:1000000;pointer-events:none;' +
+      'padding:28px 44px;border-radius:22px;text-align:center;max-width:90vw;' +
+      'font-family:"Source Sans Pro",Arial,sans-serif;font-size:clamp(26px,5vw,52px);font-weight:800;' +
+      'color:#fff;background:linear-gradient(135deg,#16a34a,#22c55e);' +
+      'border:4px solid #fff;box-shadow:0 10px 40px rgba(0,0,0,.5);' +
+      'animation:festejoCartel 10.5s ease-in-out forwards;}' +
+    '@keyframes festejoCartel{' +
+      '0%{transform:translate(-50%,calc(-50% + 70vh));opacity:0;}' +
+      '5%{opacity:1;}' +
+      '38%{transform:translate(-50%,-50%);opacity:1;}' +
+      '86%{transform:translate(-50%,-50%);opacity:1;}' +
+      '100%{transform:translate(-50%,-50%) scale(1.08);opacity:0;}}';
+  doc.head.appendChild(style);
+ 
+  var root = doc.createElement('div');
+  root.id = 'festejo-root';
+  doc.body.appendChild(root);
+ 
+  var cartel = doc.createElement('div');
+  cartel.id = 'festejo-cartel';
+  cartel.textContent = MENSAJE;
+  doc.body.appendChild(cartel);
+  setTimeout(function () { cartel.remove(); }, 10800);
+ 
+  var colores = [0, 40, 120, 200, 280, 320];
+  function nuevoGlobo() {
+    var g = doc.createElement('div');
+    g.className = 'festejo-globo';
+    g.textContent = '\\uD83C\\uDF88';
+    var size = 40 + Math.random() * 40;
+    var dur = 9 + Math.random() * 5;
+    g.style.left = (Math.random() * 96) + '%';
+    g.style.fontSize = size + 'px';
+    g.style.filter = 'hue-rotate(' + colores[Math.floor(Math.random() * colores.length)] + 'deg)';
+    g.style.animationDuration = dur + 's';
+    root.appendChild(g);
+    setTimeout(function () { g.remove(); }, dur * 1000 + 200);
+  }
+  var t0 = Date.now();
+  var timerGlobos = setInterval(function () {
+    if (Date.now() - t0 >= DURACION_GLOBOS) { clearInterval(timerGlobos); return; }
+    nuevoGlobo(); if (Math.random() > 0.4) nuevoGlobo();
+  }, 450);
+ 
+  function limpiar() {
+    [root, style, cartel].forEach(function (e) { try { e.remove(); } catch (x) {} });
+  }
+  setTimeout(limpiar, DURACION_GLOBOS + 15000);
+  // Si el usuario sale de la pantalla de resultados, se limpia todo
+  if (window.addEventListener) {
+    window.addEventListener('pagehide', limpiar);
+    window.addEventListener('unload', limpiar);
+  }
+ 
+  function fuegos() {
+    if (!P.confetti) return;
+    var fin = Date.now() + DURACION_FUEGOS;
+    var base = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 999999 };
+    var r = function (a, b) { return Math.random() * (b - a) + a; };
+    var iv = setInterval(function () {
+      var resta = fin - Date.now();
+      if (resta <= 0) return clearInterval(iv);
+      var n = 50 * (resta / DURACION_FUEGOS);
+      P.confetti(Object.assign({}, base, { particleCount: n, origin: { x: r(0.1, 0.3), y: Math.random() - 0.2 } }));
+      P.confetti(Object.assign({}, base, { particleCount: n, origin: { x: r(0.7, 0.9), y: Math.random() - 0.2 } }));
+    }, 250);
+  }
+  if (FUEGOS) {
+    if (P.confetti) { fuegos(); }
+    else {
+      var s = doc.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+      s.onload = fuegos;
+      doc.head.appendChild(s);
+    }
+  }
+})();
+</script>
+"""
+ 
+ 
+def festejo_aprobado(token="0", mensaje="¡Felicitaciones, aprobaste! 🎉", fuegos=True):
+    """Dibuja el festejo. Se llama en cada render de resultados mientras el
+    contenido (token) sea el mismo, así no se reinicia ni se corta."""
+    html = (_FESTEJO_HTML
+            .replace("__TOKEN__", str(token))
+            .replace("__MENSAJE__", json.dumps(mensaje))
+            .replace("__FUEGOS__", "true" if fuegos else "false"))
+    if hasattr(st, "iframe"):
+        st.iframe(html, height=1)
+    else:
+        components.html(html, height=0)
+ 
+ 
 # 2. CONFIGURACIÓN DE PÁGINA (DEBE SER EL PRIMER COMANDO DE STREAMLIT)
 st.set_page_config(page_title="Simulacro RPA - Administrador de Consorcios", page_icon="🏢")
-
-# 3. EJECUTAMOS LA FUNCIÓN DE DISEÑO JUSTO DESPUÉS
+ 
+# 3. EJECUTAMOS LA FUNCIÓN DE DISEÑO
 aplicar_diseno_personalizado()
-
+ 
 DURACION = 60 * 60          # 60 minutos
 APROBAR = 60                # % minimo (6 puntos)
 AREAS = {1: "Código Civil y Comercial", 2: "Ley 941 de CABA", 3: "Seguridad edilicia y AGC"}
 HIST = Path(os.environ.get("HISTORIAL_PATH", Path(__file__).with_name("historial.json")))
-
+ 
 # Banco de preguntas (1 al 50, con la pregunta 43/48 de Fachadas Seguras actualizada a 15 años)
 Q = [
 (1, '¿En qué momento nace formalmente el consorcio de propietarios como persona jurídica independiente de sus miembros?', ['Al momento de terminarse la construcción física del edificio por parte de la empresa constructora.', 'Con la venta o escrituración de la primera unidad funcional a un tercero.', 'Con el otorgamiento de la escritura pública del Reglamento de Propiedad Horizontal y su inscripción registral.', 'Cuando se celebra la primera asamblea ordinaria y se elige al administrador matriculado.'], 2, 'El Art. 2044 del CCyC establece que el consorcio como persona jurídica nace con el otorgamiento del Reglamento de Propiedad Horizontal por escritura pública y su correspondiente inscripción registral.'),
@@ -175,20 +327,20 @@ Q = [
 (3, 'El sistema informatizado implementado por la AGC que sustituyó el histórico soporte físico en papel para registrar las firmas de inspecciones de mantenimiento se denomina:', ['Sistema de Gestión de Expedientes Electrónicos Nacionales.', 'Libro Digital de Conservación (Elevadores / Fachadas / IFCI).', 'Registro Único de Contratos Inmobiliarios de la CABA.', 'Aplicación Móvil miBA de Alerta Temprana de Siniestros.'], 1, 'El Libro Digital de Conservación de la AGC digitalizó e informatizó el asentamiento técnico directo de reparaciones por parte de los proveedores autorizados, eliminando las firmas en soporte de papel físico.'),
 (3, '¿Quién es el profesional idóneo legalmente facultado para confeccionar el Informe Técnico de Fachadas Seguras a presentar ante la AGC a nombre del consorcio?', ['El encargado del edificio que cuente con más de 10 años de antigüedad en sus funciones de maestranza.', 'Un profesional con título habilitante y matrícula activa de Arquitecto o Ingeniero Civil.', 'El presidente del Consejo de Propietarios electo en la última asamblea extraordinaria.', 'Cualquier idóneo que realice tareas de pintura y albañilería en la zona de la Comuna correspondiente.'], 1, 'La presentación del Informe Técnico de Fachadas Seguras ante el Gobierno de la Ciudad exige la firma e incumbencia profesional de un Arquitecto o Ingeniero Civil matriculado en sus respectivos consejos de ley.'),
 ]
-
+ 
 S = st.session_state
-
+ 
 # ---------------------------------------------------------------- historial
 @st.cache_resource
 def _memoria():
     return {"lock": threading.Lock(), "items": []}
-
+ 
 def leer_historial():
     try:
         return json.loads(HIST.read_text(encoding="utf-8"))
     except Exception:
         return list(_memoria()["items"])
-
+ 
 def _guardar(rec):
     """Guarda en memoria y en archivo. Llamar siempre con el lock tomado."""
     m = _memoria()
@@ -199,14 +351,14 @@ def _guardar(rec):
         HIST.write_text(json.dumps(datos, ensure_ascii=False), encoding="utf-8")
     except Exception:
         pass
-
+ 
 def registrar(rec):
     with _memoria()["lock"]:
         _guardar(rec)
-
+ 
 def normalizar(nombre):
     return " ".join(nombre.split())
-
+ 
 def reservar(nombre):
     """Registra el inicio de un intento. Devuelve False si el nombre ya lo usa otra persona."""
     clave = nombre.casefold()
@@ -218,7 +370,7 @@ def reservar(nombre):
         _guardar(dict(nombre=nombre, fecha=datetime.now().strftime("%Y-%m-%d %H:%M"), inicio=True))
     S.propios.add(clave)
     return True
-
+ 
 # ---------------------------------------------------------------- estado
 def nuevo(order, conservar_usuario=True):
     usuario = S.get("usuario", "") if conservar_usuario else ""
@@ -229,7 +381,7 @@ def nuevo(order, conservar_usuario=True):
     S.perm = {n: random.sample(range(4), 4) for n in range(len(Q))}
     S.setdefault("mis", [])
     S.setdefault("propios", set())
-
+ 
 def comenzar(nombre):
     nombre = normalizar(nombre)
     if not reservar(nombre):
@@ -238,12 +390,12 @@ def comenzar(nombre):
     S.deadline = time.time() + DURACION
     S.stage = "examen"
     return True
-
+ 
 def resumen():
     total = len(S.order)
     ok = [n for n in S.order if S.ans.get(n) == Q[n][3]]
     return total, ok
-
+ 
 def terminar():
     S.used = min(DURACION, DURACION - (S.deadline - time.time()))
     S.stage, S.confirm, S.fx = "fin", False, True
@@ -259,10 +411,10 @@ def terminar():
         registrar(rec)
         S.mis.append(rec)
         S.saved = True
-
+ 
 if "stage" not in S:
     nuevo(list(range(len(Q))))
-
+ 
 # ---------------------------------------------------------------- pantallas
 @st.fragment(run_every=1)
 def reloj():
@@ -272,7 +424,7 @@ def reloj():
         st.rerun()
     m, s = divmod(resto, 60)
     st.metric("⏱️ Tiempo restante", f"{m:02d}:{s:02d}")
-
+ 
 def inicio():
     st.write(f"""**Formato:** opción múltiple, una sola respuesta correcta · **{len(S.order)} preguntas** · **60 minutos**  
 **Aprobación:** nota mínima 6 (al menos 30 de 50 correctas). Las incorrectas o en blanco no restan.  
@@ -284,7 +436,7 @@ Podés repetir el simulacro todas las veces que quieras.""")
             st.rerun()
         else:
             st.error("Ese nombre o apodo ya lo usó otra persona. Elegí uno distinto (por ejemplo, agregá una inicial o un número).")
-
+ 
 def examen():
     if time.time() >= S.deadline:
         terminar(); st.rerun()
@@ -329,7 +481,7 @@ def examen():
         else:
             S.pos += 1
         st.rerun()
-
+ 
 def resultados():
     total, ok = resumen()
     en_blanco = [n for n in S.order if S.ans.get(n, None) is None]
@@ -338,81 +490,12 @@ def resultados():
     nota = max(1.0, round(pct / 10, 1))
     minimo = math.ceil(total * APROBAR / 100)
     aprobado = len(ok) >= minimo
-    
-    if S.fx:
-        S.fx = False
-        if aprobado:
-            # Globos nativos originales
-            st.balloons()
-            st.toast("🥂 ¡Brindemos por ese resultado!", icon="🎉")
-            
-            # INYECCIÓN: Fuegos artificiales (10 seg) y Leyenda flotante gigante
-            st.markdown(
-                """
-                <style>
-                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
-                .leyenda-festejo {
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    font-family: 'Montserrat', sans-serif;
-                    font-size: 6vw;
-                    font-weight: 900;
-                    color: #FFD700;
-                    text-shadow: 0px 0px 25px rgba(255,255,255,0.9), 4px 4px 0px #FF8C00, 8px 8px 0px #000;
-                    text-align: center;
-                    z-index: 9999999;
-                    pointer-events: none;
-                    animation: subirYDesvanecer 10s ease-out forwards;
-                    white-space: nowrap;
-                }
-                @keyframes subirYDesvanecer {
-                    0% { top: 80%; opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-                    10% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-                    20% { transform: translate(-50%, -50%) scale(1); }
-                    75% { opacity: 1; top: 30%; }
-                    100% { top: -10%; opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-                }
-                </style>
-                
-                <div class="leyenda-festejo">¡Felicitaciones Aprobaste !</div>
-
-                <img src="dummy" onerror="
-                    if (!window.confettiCargado) {
-                        let s = document.createElement('script');
-                        s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
-                        s.onload = function() {
-                            window.confettiCargado = true;
-                            dispararFuegos();
-                        };
-                        document.head.appendChild(s);
-                    } else {
-                        dispararFuegos();
-                    }
-
-                    function dispararFuegos() {
-                        var duration = 10 * 1000; /* 10 segundos exactos */
-                        var animationEnd = Date.now() + duration;
-                        var defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 999999 };
-                        function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-                        
-                        var interval = setInterval(function() {
-                            var timeLeft = animationEnd - Date.now();
-                            if (timeLeft <= 0) { return clearInterval(interval); }
-                            
-                            var particleCount = 50 * (timeLeft / duration);
-                            /* Fuego artificial desde la izquierda */
-                            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                            /* Fuego artificial desde la derecha */
-                            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-                        }, 250);
-                    }
-                " style="display:none;">
-                """,
-                unsafe_allow_html=True
-            )
-
+ 
+    # Aviso emergente (una sola vez por intento)
+    if aprobado and not S.get(f"toast_{S.run}"):
+        S[f"toast_{S.run}"] = True
+        st.toast("🥂 ¡Brindemos por ese resultado!", icon="🎉")
+ 
     st.title(f"Resultado de {S.usuario}")
     m, s = divmod(int(S.used), 60)
     c1, c2, c3, c4 = st.columns(4)
@@ -421,15 +504,15 @@ def resultados():
     c3.metric("Correctas", f"{len(ok)} / {total}")
     c4.metric("Tiempo", f"{m:02d}:{s:02d}")
     st.progress(pct / 100, text=f"{pct:.1f}% de aciertos · mínimo para aprobar: {APROBAR}%")
-    
+ 
     if aprobado:
         st.success("🥂 ¡APROBADO! Alcanzaste el mínimo de 6 puntos. ¡Brindemos!")
     else:
         st.error(f"NO APROBADO. Necesitabas {minimo} correctas y lograste {len(ok)}. Te faltaron {minimo - len(ok)}. ¡A repetir!")
-    
+ 
     if en_blanco:
         st.caption(f"Preguntas en blanco: {len(en_blanco)} (no restan puntos).")
-
+ 
     filas = []
     for k, nombre in AREAS.items():
         idx = [n for n in S.order if Q[n][0] == k]
@@ -445,7 +528,7 @@ def resultados():
         st.warning(f"Donde más te costó: **{peor['Área']}** ({peor['Dominio']:.0f}%). Es lo que más te conviene practicar.")
     else:
         st.success("Dominio del 100% en todas las áreas.")
-
+ 
     if mal:
         st.subheader("Para repasar")
         for n in mal:
@@ -455,7 +538,7 @@ def resultados():
                 st.write("❌ Tu respuesta: " + (opts[el] if el is not None else "en blanco"))
                 st.write(f"✅ Correcta: {opts[a]}")
                 st.caption(expl)
-
+ 
     if len(S.mis) > 1:
         st.subheader("Tus intentos de esta sesión")
         st.dataframe(pd.DataFrame([{"Intento": i + 1, "Fecha": r["fecha"], "Correctas": f"{r['correctas']}/{r['total']}",
@@ -468,11 +551,17 @@ def resultados():
         nuevo(list(range(len(Q))), conservar_usuario=False); st.rerun()
     st.divider()
     st.markdown(f"## Nota final: {nota:.1f} / 10 — {'APROBADO 🥂' if aprobado else 'NO APROBADO'}")
-
+ 
+    # FESTEJO: globos 30 s + fuegos 10 s + cartel. Va al final de la página y
+    # se mantiene montado mientras estés en los resultados (así no se corta).
+    if aprobado and S.fx:
+        festejo_aprobado(token=f"{S.run}-{len(S.mis)}")
+ 
 def personas_que_intentaron():
     return len({r["nombre"].strip().lower() for r in leer_historial()})
-
+ 
 st.title("🏢 Simulacro RPA · Administrador de Consorcios (CABA)")
 contador = st.empty()
 {"inicio": inicio, "examen": examen, "fin": resultados}[S.stage]()
 contador.metric("👥 Personas que intentaron el examen", personas_que_intentaron())
+ 
