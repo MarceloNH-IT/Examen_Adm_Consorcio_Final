@@ -96,7 +96,7 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 
 # MODIFICACION USANDO CODIGO HTML, CSS y JavaScript personalizado en el backend de Streamlit
 
-![DatoExp](DatoExp.jpg)
+![Codigomodig](Codigomodig.jpg)
 
 # PRUEBA FINAL 🚀
 ### 🚀 Acceso en Vivo
