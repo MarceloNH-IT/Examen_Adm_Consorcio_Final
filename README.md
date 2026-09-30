@@ -72,23 +72,29 @@ El proceso de construcción del software se llevó a cabo mediante una metodolog
 
 
 * Conecté el repositorio con Streamlit Community Cloud para habilitar el despliegue automático en la nube y asegurar una disponibilidad pública fluida.
+
+# PRIMEROS PASOS PARA ARMAR EL CODIGO IDLE.
 ![01.1Py](01.1Py.jpg)
+
+# CODIGO GENERADO
 
 ![01](01.jpg)
 
-![01.2](01.2.jpg)
 
 
-![02](02.png)
-![03](03.jpg)
 
-![Linea_de_codigo](Linea_de_codigo.jpg)
-
+# DISEÑO
 ![Edificio_diseño](Edificio_dise%C3%B1o.jpg)
+
+# TERMINACION
 
 ![01.3](01.3.jpg)
 
-##PRUEBA FINAL 🚀##
+# MODIFICACION USANDO CODIGO HTML, CSS y JavaScript personalizado en el backend de Streamlit
+
+![DatoExp](DatoExp.jpg)
+
+# PRUEBA FINAL 🚀
 ### 🚀 Acceso en Vivo
 ¡Podés probar el simulador interactivo funcionando directamente desde la web acá:
 [Simulador de Examen - Administrador de Consorcios](https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app)
