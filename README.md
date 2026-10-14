@@ -3,6 +3,8 @@ Examen de practica para administracion de consorscio final by Python proyecto 1.
 
 Aquí tienes el informe redactado en primera persona, con un tono profesional, fluido y sin repeticiones, ideal para documentar y reportar tu trabajo en el repositorio de GitHub:
 
+![Profile Views](https://visitor-badge.laobi.icu/badge?page_id=MarceloNH-IT.MarceloNH-IT&style=flat&color=blue)
+
 ---
 
 # Informe de Desarrollo y Creación: Simulador de Examen RPA CABA
@@ -114,21 +116,12 @@ Testing y Depuración: Validé el comportamiento del DOM y la ejecución aislada
 
 Stack Tecnológico: Python, Streamlit, Pandas, HTML/CSS, JavaScript.
 
-# PRUEBA FINAL 🚀
+# 🌐 PRUEBA FINAL 🚀
 ### 🚀 Acceso en Vivo
 ¡Podés probar el simulador interactivo funcionando directamente desde la web acá:
 [Simulador de Examen - Administrador de Consorcios](https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app)
 
 ---
-# Ejemplo para agregarlo en la barra lateral (sidebar)
-with st.sidebar:
-    st.markdown("---")
-    st.markdown("### 🌐 Enlaces Útiles")
-    st.link_button(
-        "🚀 Abrir Simulador en Vivo", 
-        "https://examenadmconsorciofinal-ij6a4x7i2rpjzvpgymv4sc.streamlit.app",
-        use_container_width=True
-    )
 
 ## 🚀 Tecnologías y Herramientas Utilizadas
 
@@ -149,7 +142,7 @@ with st.sidebar:
 
 ![Streak Stats](https://github-readme-streak-stats.herokuapp.com/?user=MarceloNH-IT&theme=radical)
 
-![Profile Views](https://komarev.com/ghpvc/?username=MarceloNH-IT&color=blue&style=flat)
+![Profile Views](https://visitor-badge.laobi.icu/badge?page_id=MarceloNH-IT.MarceloNH-IT&style=flat&color=blue)
 
 * **💼 LinkedIn**: [Horacio Marcelo Nuñez](https://linkedin.com) 
 * **📬 Correo Electrónico**: [marcelonh86@gmail.com](marcelonh86@gmail.com)
